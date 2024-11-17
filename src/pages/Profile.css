@@ -1,0 +1,48 @@
+.profile{
+    width: 100vw;
+    height: 100vh;
+}
+.profileContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 50vw;
+    margin: auto;
+}
+
+.profileUserPhoto{
+    width: 10em;
+    height: auto;
+    margin: 2em;
+}
+
+.profileUserName{
+    font-size: 2em;
+}
+.profileUserEmail{
+    align-self: baseline;
+    font-size: 2em;
+    margin: 1em;
+}
+
+.profileUserInfo{
+    font-weight: 700;
+    padding-right: 1em ;
+}
+
+.profileLogout {
+    padding: 0.5em 0.8em;
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    border: none;
+    margin: 1em;
+    border-radius: 20px;
+}
+.profileLogout:hover{
+    background-color: #000;
+} 

@@ -1,0 +1,118 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+.cartPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.cartContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+}
+
+.itemsInCart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #ddd; /* Optional: to separate items */
+    padding: 10px 0; /* Optional: padding around each item */
+}
+.itemsInCart *{
+    margin: 0.5em;
+}
+.cartItemImgContainer {
+    width: 50px; /* Width of the image container */
+    height: 50px; /* Height of the image container */
+    margin-right: 20px; 
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartItemImg {
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover;  */
+}
+
+.cartItemDetails {
+    flex: 1; /* Take up the remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cartItemTitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    margin-bottom: 5px; /* Space between title and price */
+}
+
+.cartItemPrice {
+    font-size: 14px;
+    color: #666;
+}
+
+.cartItemCount{
+    font-weight: 500;
+}
+.cartBuyAll {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cartTotalPrice {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.buttonBuyAll {
+    padding: 0.5em 0.8em;
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    border: none;
+    margin: 1em;
+    border-radius: 20px;
+}
+.buttonBuyAll:hover{
+    background-color: #000;
+} 
+    
+.buyAllPriceContent{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}  
+.buyAllPriceText{
+    display: block;
+    padding: 0.2em;
+}
+
+.buyAllPrice{
+    display: block;
+    padding: 0.2em;
+    font-size: 2em;
+    font-weight: 500;
+}
+

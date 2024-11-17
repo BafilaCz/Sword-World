@@ -1,0 +1,274 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  header { 
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .upperNav {
+    width: 70vw;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+  }
+  .cart{
+    position: relative;
+  }
+
+  .inCart {
+    position: absolute; 
+    top: -10px;
+    right: 0px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+  }
+
+  
+  .logo {
+    max-width: 10em;
+    height: auto;
+    flex: 1;
+  }
+  
+  .searchBar {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    padding: 0 1em;
+  }
+  
+  .searchInput {
+    color: white;
+    background-color: #121212;
+    width: 8em;
+    font-size: 2em;
+    padding: 0.3em;
+    border-radius: 0.5em;
+    border: 0.08em solid red;
+  }
+  
+  .searchInput:focus {
+    outline: none;
+  }
+  
+  .searchButton {
+    font-size: 2.5em;
+    color: white;
+    background-color: transparent;
+    margin: 0em 0.5em;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .searchButton:hover {
+    color: red;
+  }
+  
+  .link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    font-weight: 600;
+    padding: 0em 0.5em;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    list-style: none;
+    cursor: pointer;
+  }
+  
+  .link:hover {
+    color: red;
+    text-decoration: underline;
+  }
+  
+  .upperLink {
+    margin: 0.5em;
+    font-weight: 100;
+    font-size: 1.5em;   
+  }
+  .upperLink:hover{
+    text-decoration: none;
+  }
+  
+  .lowerNav {
+    width: 100vw;
+    background-color: #121212;
+    display: flex;
+    justify-content: baseline;
+    align-items: baseline;
+  }
+  
+  .allLinks {
+    background-color: #121212;
+    width: 70vw;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    
+  }
+
+  
+  .lowerLink {
+    font-size: 1.5em;
+    padding: 0.5em;
+  }
+
+  .headerPfp{
+    width: 2em;
+    height: auto;
+    border-radius: 50%; 
+    object-fit: cover; 
+  }
+  .upperLink svg{
+    width: 2em;
+    height: auto;
+
+  }
+  .searchInputContainer{
+    position: relative;
+  }
+  .searchedProductsContent{
+    z-index: 2;
+    /* width: 70vw;
+    height: 70vh; */
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    color: #fff;
+    /* top: 100%; */
+    /* left: 0px; */
+
+  }
+  .searchedProductLink{
+    z-index: 2;
+    color: #fff !important;;
+    text-align: center;
+    text-decoration: none;
+    background-color: #000;
+    width: 250px;
+    padding: 8px 10px;
+
+  }
+  .searchedProductLink:hover{
+
+    text-decoration: underline;
+    text-decoration-color: red;
+
+
+  }
+
+  /* .searchedProductsContent *{
+    z-index: 2;
+
+  } */
+  .searchedProducts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+  }
+  .searchedProductLink{
+    color: #000;
+    text-decoration: none;
+  }
+  
+  
+  /* Mobiles */
+  .mobileNav {
+    display: none;
+  }
+  
+  @media only screen and (max-width: 1000px) {
+    .pcNav {
+      display: none;
+    }
+    .mobileNav {
+      display: block;
+    }
+  }
+
+  .mobileNav .upperNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    margin: 0;
+  }
+  .mobileNav .upperNav .logo{
+    align-self: left;
+  }
+  
+  .burger {
+    display: block;
+    color: #fff;
+    font-size: 3em;
+    padding: 0.2em;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    outline: none;
+    border: none;
+  }
+  
+  .mobileNav .allLinks {
+    display: none;
+   
+  }
+
+  
+  .mobileNav .allLinks.isActive{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    
+  }
+
+  .mobileNav .allLinks.isActive .link {
+    border-bottom: #fff 2px solid;
+    margin: 0.7em 0em;
+  }
+  .mobileNav .allLinks.isActive .link:hover {
+    border-bottom: red 2px solid;
+    margin: 0.7em 0em;
+  }
+  .mobileNav .allLinks.isActive .searchBar {
+    margin: 2em 0em;
+  }
+  
+  .mobileNav .lowerNav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobileNav .cart{
+    margin-right: 1em;
+  }
+  
+ 

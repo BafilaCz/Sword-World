@@ -1,0 +1,81 @@
+.registerContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #121212;
+}
+.registerForm {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #000;
+}
+.registerForm *{
+    color: #fff;
+}
+.registerForm input{
+    color: #000;
+}
+
+.registerTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #fff;
+}
+
+/* Form labels */
+.registerInputTag{
+    margin: 10px 0 5px;
+    font-size: 14px;
+    color: #fff;
+}
+
+/* Input fields */
+.registerForm input{
+    width: calc(100%);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Submit button */
+.registerForm input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 2em 0;
+}
+
+.registerForm input[type="submit"]:hover {
+    background-color: red;
+}
+
+
+.registerForm p a {
+    color: red;
+    text-decoration: none;
+}
+
+.registerForm p a:hover {
+    text-decoration: underline;
+}
+
+.inputPasswordToggle{
+    display: block;
+    text-align: end;
+}
+.registerLoginLink{
+    text-align: center;
+}
