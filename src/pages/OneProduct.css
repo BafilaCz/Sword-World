@@ -1,0 +1,58 @@
+.oneProduct{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    margin: auto;
+}
+
+
+.oneProductTitle{
+    text-align: center;
+    font-size: 5em;
+    margin: 2em 0em;
+}
+.oneProductImg{
+    max-width: 30vw;
+    height: auto;
+    margin: 0em;
+}
+
+.oneProductDescription{
+    text-align: left;
+    font-size: 2em;
+    font-weight: 500;
+    margin: 2em 0em;
+    max-width: 80vw;
+}
+
+.oneProductCartButton{
+    cursor: pointer;
+    font-size: 2.5em;
+    text-align: center;
+    font-weight: 500;
+    padding: 0.5em;
+    margin: 2em;
+    background-color: white;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+    
+
+}
+.oneProductCartButton:hover{
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    color: red;
+}
+
+.oneProductAmount{
+    font-size: 3em;
+    color: green;
+    font-weight: 500;
+}
+.oneProductPrice{
+    font-size: 4em;
+    color: #000;
+    font-weight: 700;
+    margin: 0.4em;
+}

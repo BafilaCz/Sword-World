@@ -17,9 +17,9 @@ const [error, setError] = useState(false)
 
 
 const addFilterOption = (data, resultArray, option) => {
-  data.forEach((oneProduct) => {
-    if (!resultArray.includes(oneProduct[option])) {
-      resultArray.push(oneProduct[option])
+  data.forEach((oneProducts) => {
+    if (!resultArray.includes(oneProducts[option])) {
+      resultArray.push(oneProducts[option])
       console.log(resultArray)
     }
   
@@ -42,8 +42,8 @@ useEffect(() => {
       setData([]);
     } else {
       let result = [];
-      snapshot.docs.forEach((oneProduct) => {
-        result.push({ id: oneProduct.id, ...oneProduct.data() });
+      snapshot.docs.forEach((oneProducts) => {
+        result.push({ id: oneProducts.id, ...oneProducts.data() });
       });
       setData(result);
       setError(false);
@@ -70,9 +70,9 @@ useEffect(() => {
         {/*  */}
 
 
-        {data.map((oneProduct)=>{
-          const {id, title, price, img, amount, color} = oneProduct
-          return <div className='oneProduct' key={id}>
+        {data.map((oneProducts)=>{
+          const {id, title, price, img, amount, color} = oneProducts
+          return <div className='oneProducts' key={id}>
             
             <Link to={`/product/${id}`} className='productTitle'> {<h2 className='productTitle'> {title} </h2>} </Link>
             <br />
@@ -83,7 +83,7 @@ useEffect(() => {
             
             <p className='productPrice'>{`${price} Kč`}</p>
 
-            <button type="button" className="productCartButton" onClick={()=>addToCart(oneProduct)}><span className="cartIcon"><FaCartShopping /></span> Do Košíku</button>
+            <button type="button" className="productCartButton" onClick={()=>addToCart(oneProducts)}><span className="cartIcon"><FaCartShopping /></span> Do Košíku</button>
 
 
 

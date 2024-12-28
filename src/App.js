@@ -11,12 +11,13 @@ import Footer from "./components/Footer"
 import Home from './pages/Home'
 import NoPage from './pages/NoPage'
 import Products from './pages/Products'
-import Product from './pages/Product'
+import OneProduct from './pages/OneProduct'
 import Upload from './pages/Upload'
 import Cart from './pages/Cart'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
+
 
 
 
@@ -66,6 +67,10 @@ function App() {
     if (!user) {
       toast.error("Please log in to add items to the cart");
       return;
+    }
+    
+    else {
+      toast.info("položka bnyla přidána do košíku");
     }
   
     setInCart(inCart + 1);
@@ -157,7 +162,7 @@ function App() {
         <Route path="products" element={<Products inCart={inCart} addToCart={addToCart} productsInCart={productsInCart}/>} /> 
         <Route path="cart" element={<Cart productsInCart={productsInCart} increaseQuantity={increaseQuantity}
          decreaseQuantity={decreaseQuantity}/>} />
-        <Route path="product/:id" element={<Product/>} /> 
+        <Route path="product/:id" element={<OneProduct addToCart={addToCart} />} /> 
         <Route path="register" element={<Register/>} /> 
         <Route path="login" element={<Login inCart={inCart} productsInCart={productsInCart}/>} /> 
         <Route path="profile" element={<Profile/>} /> 

@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.oneProduct{
+.oneProducts{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,7 +45,7 @@
 
 }
 
-.oneProduct:hover {
+.oneProducts:hover {
     transform: scale(1.05); /* Scale up the box */
     z-index: 10; /* Ensure the hovered box is on top */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Optional: add shadow for better effect */
@@ -108,13 +108,13 @@
 
 @media only screen and (max-width: 720px) {
 
-    .oneProduct{
+    .oneProducts{
         box-shadow: none;
         border-bottom: #000 solid 1px;
         width: 100vw;
         padding: 1em;
     }
-    .oneProduct:hover {
+    .oneProducts:hover {
         border-bottom: none;
     }
     

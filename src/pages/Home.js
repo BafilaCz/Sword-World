@@ -1,6 +1,3 @@
-
-import Product from "./Products"
-
 const Home = () => {
   return (
     <div className="homeContainer">

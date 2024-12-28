@@ -39,10 +39,10 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity }) => {
 
                     return (
                         <div className='itemsInCart' key={id}>
-                            <Link to="/" className='cartItemImgContainer'>
+                            <Link to={`/product/${id}`} className='cartItemImgContainer'>
                                 <img src={img} alt="" className='cartItemImg' />
                             </Link>
-                            <Link to="/" className='cartItemTitle'>{title}</Link>
+                            <Link to={`/product/${id}`} className='cartItemTitle'>{title}</Link>
                             <p className='cartItemPrice'>Cena: {price} Kč</p>
 
                             <p className='cartItemCount'>{numberOfItems} x</p>
