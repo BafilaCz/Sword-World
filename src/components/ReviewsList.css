@@ -1,0 +1,35 @@
+.reviewsList{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+}
+.reviewsList svg{
+    color: red;
+}
+
+.reviewsListTitle{
+    font-size: 3em;
+}
+.reviewsListReview{
+    background-color: #121212;
+    color: #fff;
+    width: 50%;
+    padding: 2em;
+    margin: 2em;
+    border: 4px solid red;
+    border-radius: 50px;
+
+}
+
+.reviewsListUsername{
+    font-size: 2em;
+    padding: 1em 0em;
+    color: #fff;
+
+}
+.reviewsListComment{
+    font-size: 1.5em;
+    color: #fff;
+}

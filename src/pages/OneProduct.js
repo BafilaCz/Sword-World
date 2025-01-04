@@ -7,6 +7,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { TiTick } from "react-icons/ti";
 import { FaCartShopping } from "react-icons/fa6";
 import NoPage from './NoPage'
+import ReviewsForm from '../components/ReviewsForm';
+import ReviewsList from '../components/ReviewsList';
 
 
 
@@ -52,6 +54,10 @@ const OneProduct = ({addToCart}) => {
         <p className='oneProductAmount'><TiTick /> Zbývá {data.amount} Kusů</p>
         <p className='oneProductPrice'>{`${data.price} Kč`}</p>
         <button type="button" className="oneProductCartButton" onClick={()=>addToCart(data)}><span className="oneProductcartIcon"><FaCartShopping /></span> Do Košíku</button>
+
+        <ReviewsList productId={id} />
+        <ReviewsForm productId={id} />
+
     
     </div>
     )
