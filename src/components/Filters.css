@@ -1,15 +1,19 @@
-.filtersOverlay{
+/* Overlay Styling */
+.filtersOverlay {
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
     position: fixed;
     background: rgba(50, 50, 50, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.filtersContent{
+/* Content Container */
+.filtersContent {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -21,7 +25,105 @@
     max-width: 60vw;
     max-height: 60vh;
 }
-.showFiltersButton{
+
+/* Close Button */
+.closeFiltersButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #444;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.closeFiltersButton:hover {
+    color: red;
+}
+
+/* Filter Sections */
+.filterSection {
+    margin-bottom: 20px;
+}
+
+.filterSection h4 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Price Range Inputs */
+.priceInputs input {
+    width: 48%;
+    padding: 8px;
+    margin-right: 4%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.priceInputs input:last-child {
+    margin-right: 0;
+}
+
+/* Dropdown Styling */
+.filterSection select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Checkbox Styling */
+.filterSection input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Apply Button */
+.applyFiltersButton {
+    width: 100%;
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0.1em;
+
+}
+
+.applyFiltersButton:hover {
+    background-color: darkred;
+}
+
+/* Reset Button */
+.resetFiltersButton {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0.1em;
+}
+
+.resetFiltersButton:hover {
+    background-color: #121212;
+}
+
+/* Show Filters Button */
+.showFiltersButton {
     font-size: 1.5em;
     font-weight: 600;
     border-radius: 0.5em;
@@ -29,6 +131,8 @@
     color: #fff;
     background-color: red;
     border: none;
-
 }
 
+.showFiltersButton:hover {
+    background-color: darkred;
+}

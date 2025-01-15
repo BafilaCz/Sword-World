@@ -11,27 +11,13 @@ import Filters from "../components/Filters"
 
 const Products= ({addToCart}) => {
 const [data, setData] = useState([])
+const [filteredData, setFilteredData] = useState([])
 const [error, setError] = useState(false)
 
 // filtery
 
-
-const addFilterOption = (data, resultArray, option) => {
-  data.forEach((oneProducts) => {
-    if (!resultArray.includes(oneProducts[option])) {
-      resultArray.push(oneProducts[option])
-      console.log(resultArray)
-    }
-  
-    
-  })
-}
-
-
-const colorOptions =[]
-addFilterOption(data, colorOptions, "color")
-
 //
+
 
 
 useEffect(() => {
@@ -46,6 +32,7 @@ useEffect(() => {
         result.push({ id: oneProducts.id, ...oneProducts.data() });
       });
       setData(result);
+      setFilteredData(result);
       setError(false);
     }
   }, 
@@ -59,18 +46,42 @@ useEffect(() => {
 
 
 
+
+const handleFilterChange = (filters) => {
+  const { priceRange, selectedTags, selectedColor } = filters;
+
+  const filtered = data.filter((product) => {
+    const matchesPrice =
+      Number(product.price.replace(/\s/g, "")) >= priceRange.min &&
+      Number(product.price.replace(/\s/g, "")) <= priceRange.max;
+
+    const matchesTags =
+      selectedTags.length === 0 ||
+      selectedTags.some((tag) => product.tags.includes(tag));
+
+    const matchesColor =
+      !selectedColor || product.color === selectedColor;
+
+    return matchesPrice && matchesTags && matchesColor;
+  });
+
+  setFilteredData(filtered);
+}
+
+
+
   return (
     <div className='products'>
         {error && <p>{error}</p>}
 
         {/* filtry */}
         <div className="filtersSection">
-        <Filters/>
+        <Filters onFilterChange={handleFilterChange} />
         </div>
         {/*  */}
 
 
-        {data.map((oneProducts)=>{
+        {filteredData.map((oneProducts)=>{
           const {id, title, price, img, amount, color} = oneProducts
           return <div className='oneProducts' key={id}>
             
