@@ -181,7 +181,7 @@ function App() {
                 increaseQuantity={increaseQuantity}
                 decreaseQuantity={decreaseQuantity}
                 formatNumberWithSpaces = {formatNumberWithSpaces}
-                clearCart={clearCart} // Pass the clearCart function
+                clearCart={clearCart}
               />
             }
           />
