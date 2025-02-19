@@ -1,58 +1,84 @@
-.oneProduct{
+.oneProduct {
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 80vw;
     margin: auto;
+    padding: 2em 0;
 }
 
-
-.oneProductTitle{
+.oneProductTitle {
     text-align: center;
-    font-size: 5em;
-    margin: 2em 0em;
+    font-size: 3em; 
+    margin: 1em 0; 
+    color: #333;
 }
-.oneProductImg{
+
+.oneProductImg {
     max-width: 30vw;
     height: auto;
-    margin: 0em;
+    margin: 1em 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.oneProductDescription{
-    text-align: left;
-    font-size: 2em;
-    font-weight: 500;
-    margin: 2em 0em;
-    max-width: 80vw;
-}
-
-.oneProductCartButton{
-    cursor: pointer;
-    font-size: 2.5em;
+.oneProductDescription {
     text-align: center;
+    font-size: 1.5em;
     font-weight: 500;
-    padding: 0.5em;
-    margin: 2em;
+    margin: 1em 0;
+    max-width: 60vw;
+    color: #555;
+
+}
+
+.oneProductCartButton {
+    cursor: pointer;
+    font-size: 1.5em;
+    font-weight: 500;
+    padding: 0.5em 1em;
+    margin: 1em 0;
     background-color: white;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
-    
-
-}
-.oneProductCartButton:hover{
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-    color: red;
+    border: 2px solid red;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-.oneProductAmount{
-    font-size: 3em;
+.oneProductCartButton:hover {
+    background-color: red;
+    color: white;
+}
+
+.oneProductAmount {
+    font-size: 1.5em; 
     color: green;
     font-weight: 500;
+    margin: 0.5em 0;
 }
-.oneProductPrice{
-    font-size: 4em;
+
+.oneProductPrice {
+    font-size: 2.5em;
     color: #000;
     font-weight: 700;
-    margin: 0.4em;
+    margin: 0.5em 0; 
+}
+
+.oneProductReviewCount, .oneProductReviewRating {
+    font-size: 1.2em; 
+    color: #000; 
+    margin: 0.5em 0; 
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+}
+
+.oneProductReviewRating svg{
+    color: gold;
+}
+
+.oneProductReviewsListTitle {
+    font-size: 2em;
+    margin: 1em 0; 
+    color: #333; 
 }

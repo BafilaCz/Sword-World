@@ -1,0 +1,15 @@
+
+.nothingFound{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    text-align: center;
+    margin: 2em;
+}
+.nothingFound svg{
+    font-size: 5em;
+    color: red;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,145 @@
+.reviewsFormOverlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(50, 50, 50, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+
+.reviewsForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.oneProductReviewButton{
+    cursor: pointer;
+    font-size: 2em;
+    font-weight: 500;
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+}
+.oneProductReviewButton:hover{
+    background-color: #000;
+    color: white;
+}
+
+.oneProductReviewButton svg{
+
+    position: relative;
+    top: 0.1em;
+
+}
+
+
+.closeReviewsButton {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #444;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.reviewsFormForm{
+    position: relative;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+    width: 80%;
+    height: 80%;
+}
+.reviewsFormForm img {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd; 
+}
+
+.reviewsFormTextarea{
+    width: 70%;
+    height: 80%;
+    padding: 1em 1em;
+    margin: 4em 2em;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1em;
+    resize: none;
+    transition: border-color 0.3s ease;
+
+}
+
+.reviewsForm select {
+    width: 4em;
+    height: 3.5em;
+    padding: 0.8em;
+    margin-bottom: 1.5em;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1em;
+    background-color: white;
+    transition: border-color 0.3s ease;
+}
+.reviewsFormSelectStar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reviewsFormSelectStar svg{
+
+    color: gold;
+    font-size: 2em;
+    position: relative;
+    top: -0.4em;
+    left: 0.2em;
+
+}
+
+.reviewsFormSubmitButton{
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 2em;
+    background-color: red;
+    color: #fff;
+    margin-bottom: 2em;
+}
+.reviewsFormSubmitButton:hover{
+    background-color: black;
+    transition: background-color 0.3s ease;
+
+}
+
+.reviewsFormAreaAndImg{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+

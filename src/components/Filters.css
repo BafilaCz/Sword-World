@@ -10,27 +10,52 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+
+}
+
+/* Content Container */
+/* Filters Container */
+.filters {
+    position: relative;
+}
+
+/* Overlay Styling */
+.filtersOverlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(50, 50, 50, 0.8);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Content Container */
 .filtersContent {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 1.4;
     background-color: #fff;
-    padding: 14px;
+    padding: 1.5em;
     border-radius: 1em;
-    max-width: 60vw;
-    max-height: 60vh;
+    width: 90%; /* Use percentage for width */
+    max-width: 500px; /* Set a max-width for larger screens */
+    height: auto; /* Let the height adjust based on content */
+    max-height: 90vh; /* Limit height to 90% of viewport height */
+    overflow-y: auto; /* Add scroll if content overflows */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 1em; /* Consistent spacing between elements */
+    position: relative;
 }
 
 /* Close Button */
 .closeFiltersButton {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0.5em;
+    right: 0.5em;
     font-size: 1.2em;
     font-weight: bold;
     color: #444;
@@ -40,99 +65,104 @@
     transition: color 0.3s;
 }
 
-.closeFiltersButton:hover {
-    color: red;
-}
 
 /* Filter Sections */
 .filterSection {
-    margin-bottom: 20px;
+    margin-bottom: 1em;
 }
 
 .filterSection h4 {
     font-size: 1.1em;
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
     color: #333;
 }
 
 /* Price Range Inputs */
-.priceInputs input {
-    width: 48%;
-    padding: 8px;
-    margin-right: 4%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+.priceInputs {
+    display: flex;
+    gap: 0.5em; /* Consistent spacing */
 }
 
-.priceInputs input:last-child {
-    margin-right: 0;
+.priceInputs input {
+    width: 48%; /* Adjust width for two inputs */
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    font-size: 1em;
 }
 
 /* Dropdown Styling */
 .filterSection select {
     width: 100%;
-    padding: 10px;
+    padding: 0.8em;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 0.5em;
     font-size: 1em;
 }
 
 /* Checkbox Styling */
 .filterSection input[type="checkbox"] {
-    margin-right: 10px;
+    margin-right: 0.5em;
 }
 
-/* Apply Button */
-.applyFiltersButton {
-    width: 100%;
-    padding: 10px;
-    background-color: red;
-    color: white;
+.filterSection label {
+    font-size: 1em;
+    color: #333;
+}
+
+/* Buttons Container */
+.filterButtons {
+    display: flex;
+    gap: 0.5em; /* Consistent spacing */
+}
+
+/* Apply and Reset Buttons */
+.applyFiltersButton,
+.resetFiltersButton {
+    flex: 1; /* Equal width for both buttons */
+    padding: 0.8em;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5em;
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin: 0.1em;
+}
 
+.applyFiltersButton {
+    background-color: red;
+    color: white;
 }
 
 .applyFiltersButton:hover {
-    background-color: darkred;
+    background-color: #000;
 }
 
-/* Reset Button */
 .resetFiltersButton {
-    width: 100%;
-    padding: 10px;
-    background-color: black;
+    background-color: #000;
     color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 0.1em;
 }
 
 .resetFiltersButton:hover {
-    background-color: #121212;
+    background-color: #333;
 }
 
 /* Show Filters Button */
 .showFiltersButton {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 600;
     border-radius: 0.5em;
     padding: 0.5em 0.8em;
     color: #fff;
     background-color: red;
     border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5em; /* Spacing between icon and text */
 }
 
 .showFiltersButton:hover {
-    background-color: darkred;
+    background-color: #000;
 }
+

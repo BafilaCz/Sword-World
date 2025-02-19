@@ -1,48 +1,146 @@
-.profile{
+.profile {
     width: 100vw;
-    height: 100vh;
-}
-.profileContent{
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding: 2em 1em;
+    background-color: #fff;
+}
+
+.profileContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 50vw;
-    margin: auto;
+    margin: 2em auto;
+    background: white;
+    /* padding: 8em; */
+
 }
 
-.profileUserPhoto{
-    width: 10em;
-    height: auto;
-    margin: 2em;
+.profileUserPhoto {
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
 }
 
-.profileUserName{
+.profileUserName {
     font-size: 2em;
-}
-.profileUserEmail{
-    align-self: baseline;
-    font-size: 2em;
-    margin: 1em;
+    margin-top: 0.5em;
 }
 
-.profileUserInfo{
-    font-weight: 700;
-    padding-right: 1em ;
+.profileUserEmail {
+    font-size: 1.4em;
+    margin: 1em 0em;
+    color: #000;
 }
-
-.profileLogout {
-    padding: 0.5em 0.8em;
-    font-size: 2em;
-    font-weight: 700;
-    text-align: center;
+.profileLogoutButton{
     cursor: pointer;
+    font-size: 1.5em;
+    font-weight: 500;
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    background-color: white;
+    border: 2px solid red;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.profileLogoutButton:hover{
     background-color: red;
     color: white;
-    border: none;
-    margin: 1em;
-    border-radius: 20px;
 }
-.profileLogout:hover{
-    background-color: #000;
-} 
+
+/* Orders */
+.profileOrders {
+    width: 100%;
+    margin-top: 8em;
+}
+
+.profileNoOrdersYet{
+    margin: auto;
+    text-align: center;
+}
+
+.profileOrders h4 {
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.orderItem {
+    background: white;
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    margin-bottom: 2em;
+}
+
+.orderItem p {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+}
+
+/* Products inside an order */
+.orderProducts {
+    margin-top: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: flex-start;
+}
+
+.orderProduct {
+    background: #fff;
+    padding: 1em;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    text-align: center;
+}
+
+.orderProductImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.orderProduct p {
+    font-size: 1em;
+    margin: 0.5em 0;
+    color: #000;
+}
+
+
+@media (max-width: 900px) {
+    .profileContent {
+        max-width: 80vw;
+    }
+    
+    .orderProduct {
+        width: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .profileContent {
+        max-width: 90vw;
+    }
+
+    .profileUserName {
+        font-size: 1.5em;
+    }
+
+    .profileUserEmail {
+        font-size: 1em;
+    }
+
+    .orderProduct {
+        width: 100px;
+    }
+}

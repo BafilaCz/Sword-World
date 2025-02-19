@@ -81,7 +81,8 @@ const Header = ({inCart}) => {
     setBurgerActive(!burgerActive);
   }
   const handleCart = () => {
-    if(user){  
+    if(user){ 
+      setBurgerActive(false)
       window.location = "/cart"
     }
     else{
@@ -94,6 +95,7 @@ const Header = ({inCart}) => {
   }
   const handleAccount = () => {
     if(user){
+      setBurgerActive(false)
       window.location = "/profile"
     }
     else{
@@ -136,9 +138,9 @@ const Header = ({inCart}) => {
             </div>
           </div>
 
-            <button type="submit" className="searchButton">
+            {/* <button type="submit" className="searchButton">
               <MdOutlineSearch />
-            </button>
+            </button> */}
 
             
           </form>
@@ -169,7 +171,7 @@ const Header = ({inCart}) => {
 {/* MOBILY */}
       <nav className="mobileNav">
         <div className="upperNav">
-          <Link to={"/"}>
+          <Link to={"/"} onClick={()=> setBurgerActive(false)}>
           <img src={logo} alt="logo" className="logo" />
           </Link>
 
@@ -185,16 +187,29 @@ const Header = ({inCart}) => {
           </button>
 
           <div className={`allLinks ${burgerActive ? 'isActive' : ''}`}>
-            <form className="searchBar" onSubmit={handleSearch}>
-              <input type="text" placeholder="Hledat..." className="searchInput" onInput={handleInput}/>
-              <button type="submit" className="searchButton">
-                <MdOutlineSearch />
-              </button>
-            </form>
-            <NavLink to={"/"}className="link lowerLink">Domů</NavLink>
-            <NavLink to={"products"} className="link lowerLink">Produkty</NavLink>
-            <NavLink to={"/"} className="link lowerLink">O nás</NavLink>
-            <NavLink onClick={handleAccount} className="account link lowerLink">Account</NavLink>
+          <form className="searchBar" onSubmit={handleSearch}>
+          <div className="searchInputContainer">
+            <input type="text" placeholder="Hledat..." className="searchInput" value={searchedWord} onInput={handleInput}/>
+            <div className="searchedProductsContent">
+            {searchedProducts.map((oneProduct)=>{
+              const {id, title, price, img, amount} = oneProduct
+              return <div className='searchedProducts' key={id}>
+                <Link to={`product/${id}`} className="searchedProductLink" onClick={clearSearchedWord}>{title}</Link>
+              </div>
+            })}
+            </div>
+          </div>
+
+            {/* <button type="submit" className="searchButton">
+              <MdOutlineSearch />
+            </button> */}
+
+            
+          </form>
+            <NavLink to={"/"} className="link lowerLink" onClick={burgerHandler}>Domů</NavLink>
+            <NavLink to={"products"} className="link lowerLink" onClick={burgerHandler}>Produkty</NavLink>
+            <NavLink to={"/"} className="link lowerLink" onClick={burgerHandler}>O nás</NavLink>
+            <NavLink onClick={handleAccount} className="account link lowerLink">Profil</NavLink>
           </div>
         </div>
       </nav>

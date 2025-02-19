@@ -1,108 +1,146 @@
-import "./Products.css"; 
+import "./Products.css";
 import { collection, onSnapshot } from "firebase/firestore";
-import { projectFirestore } from '../firebase/config'
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { projectFirestore } from '../firebase/config';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { TiTick } from "react-icons/ti";
 import { FaCartShopping } from "react-icons/fa6";
-import Filters from "../components/Filters"
+import { FaStar } from "react-icons/fa";
+import Filters from "../components/Filters";
+import NothingFound from "../components/NothingFound";
 
+const Products = ({ addToCart }) => {
+    const [data, setData] = useState([]);
+    const [newData, setNewData] = useState([]);
+    const [error, setError] = useState(false);
 
+    useEffect(() => {
+        const colRef = collection(projectFirestore, "products");
+        const unsubscribe = onSnapshot(colRef, (snapshot) => {
+            if (snapshot.empty) {
+                setError("Zadne produkty nebyly nalezeny");
+                setData([]);
+            } else {
+                let result = [];
+                snapshot.docs.forEach((oneProducts) => {
+                    result.push({ id: oneProducts.id, ...oneProducts.data() });
+                });
+                setData(result);
+                setNewData(result);
+                setError(false);
+            }
+        }, (err) => setError(err.message));
 
-const Products= ({addToCart}) => {
-const [data, setData] = useState([])
-const [filteredData, setFilteredData] = useState([])
-const [error, setError] = useState(false)
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    }, []);
 
-// filtery
+    const handleFilterChange = (filters) => {
+        const { priceRange, selectedTags, selectedColor } = filters;
 
-//
+        const filtered = data.filter((product) => {
+            const matchesPrice =
+                Number(product.price.replace(/\s/g, "")) >= priceRange.min &&
+                Number(product.price.replace(/\s/g, "")) <= priceRange.max;
 
+            const matchesTags =
+                selectedTags.length === 0 ||
+                selectedTags.some((tag) => product.tags.includes(tag));
 
+            const matchesColor =
+                !selectedColor || product.color === selectedColor;
 
-useEffect(() => {
-  const colRef = collection(projectFirestore, "products");
-  const unsubscribe = onSnapshot(colRef, (snapshot) => {
-    if (snapshot.empty) {
-      setError("Zadne produkty nebyly nalezeny");
-      setData([]);
-    } else {
-      let result = [];
-      snapshot.docs.forEach((oneProducts) => {
-        result.push({ id: oneProducts.id, ...oneProducts.data() });
-      });
-      setData(result);
-      setFilteredData(result);
-      setError(false);
+            return matchesPrice && matchesTags && matchesColor;
+        });
+
+        setNewData(filtered);
     }
-  }, 
-  (err) => setError(err.message));
-  
 
-  // Cleanup subscription on unmount
-  return () => unsubscribe();
-}, []);
+    const changeWindows = () =>{
+        window.location = "/"
+    }
 
+    const handleSortBy = (type) => {
+        let sortedData = [...newData]; // Create a copy of newData to avoid mutating state directly
 
+        if (type === "priceLow") {
+            // od nejnižší ceny
+            sortedData.sort((a, b) => {
+                const priceA = Number(a.price.replace(/\s/g, ""));
+                const priceB = Number(b.price.replace(/\s/g, ""));
+                return priceA - priceB;
+            });
+        } else if (type === "priceHigh") {
+            // od nejvyšší ceny
+            sortedData.sort((a, b) => {
+                const priceA = Number(a.price.replace(/\s/g, ""));
+                const priceB = Number(b.price.replace(/\s/g, ""));
+                return priceB - priceA;
+            });
+        } else if (type === "reviews") {
+            // podle průměrných recenzí
+            sortedData.sort((a, b) => {
+                const reviewA = (a.averageReview || 0);
+                const reviewB = (b.averageReview || 0);
+                return reviewB - reviewA;
+            });
+        }
 
+        setNewData(sortedData); // Update the state with the sorted data
+    };
 
+    const sklonovani = (count, word) => {
+        if (count === 1 && word === "recenze") {
+            return "recenze";
+        } else if (word === "recenze") {
+            return "recenzí";
+        } else {
+            return "";
+        }
+    }
 
-const handleFilterChange = (filters) => {
-  const { priceRange, selectedTags, selectedColor } = filters;
+    return (
+        <div className='products'>
+            {error && <p>{error}</p>}
 
-  const filtered = data.filter((product) => {
-    const matchesPrice =
-      Number(product.price.replace(/\s/g, "")) >= priceRange.min &&
-      Number(product.price.replace(/\s/g, "")) <= priceRange.max;
+            <div className="filtersAndSortingContainer">
+                {/* Filters Section */}
+                <div className="filtersSection">
+                    <Filters onFilterChange={handleFilterChange} />
+                </div>
 
-    const matchesTags =
-      selectedTags.length === 0 ||
-      selectedTags.some((tag) => product.tags.includes(tag));
+                {/* Sorting Section */}
+                <div className="sortingSection">
+                    <button className="sortingButton" onClick={() => handleSortBy("reviews")}>Nejlépe hodnocené</button>
+                    <button className="sortingButton" onClick={() => handleSortBy("priceLow")}>Nejlevnější</button>
+                    <button className="sortingButton" onClick={() => handleSortBy("priceHigh")}>Nejdražší</button>
+                </div>
+            </div>
 
-    const matchesColor =
-      !selectedColor || product.color === selectedColor;
-
-    return matchesPrice && matchesTags && matchesColor;
-  });
-
-  setFilteredData(filtered);
-}
-
-
-
-  return (
-    <div className='products'>
-        {error && <p>{error}</p>}
-
-        {/* filtry */}
-        <div className="filtersSection">
-        <Filters onFilterChange={handleFilterChange} />
+            {/* Render Products */}
+            {newData.length === 0 ? (
+                <NothingFound />
+            ) : (
+                newData.map((oneProducts) => {
+                    const { id, title, price, img, amount, color, averageReview, reviewCount } = oneProducts;
+                    return (
+                        <div className='oneProducts' key={id}>
+                            <Link to={`/product/${id}`} className='productTitle'><h2 className='productTitle'>{title}</h2></Link>
+                            <Link to={`/product/${id}`} className="productImgContainer"><img src={img} className='productImg' alt={title} /></Link>
+                            <br />
+                            <Link to={`/product/${id}`} className='productAmount'><TiTick /> Zbývá {amount} Kusů</Link>
+                            <Link to={`/product/${id}`}  className="productsAverageReview">{`${averageReview || 0}`} <FaStar /></Link>
+                            <Link to={`/product/${id}`}  className='productPrice'>{`${price} Kč`}</Link>
+                            <button type="button" className="productCartButton" onClick={() => addToCart(oneProducts)}>
+                                <span className="cartIcon"><FaCartShopping />
+                                </span> Do Košíku
+                            </button>
+                        </div>
+                    );
+                })
+            )}
         </div>
-        {/*  */}
+    );
+};
 
-
-        {filteredData.map((oneProducts)=>{
-          const {id, title, price, img, amount, color} = oneProducts
-          return <div className='oneProducts' key={id}>
-            
-            <Link to={`/product/${id}`} className='productTitle'> {<h2 className='productTitle'> {title} </h2>} </Link>
-            <br />
-            <Link to={`/product/${id}`} className="productImgContainer">{<img src={img} className='productImg' />}</Link>
-            <br />
-            <p className='productAmount'><TiTick /> Zbývá {amount} Kusů</p>
-            <br />
-            
-            <p className='productPrice'>{`${price} Kč`}</p>
-
-            <button type="button" className="productCartButton" onClick={()=>addToCart(oneProducts)}><span className="cartIcon"><FaCartShopping /></span> Do Košíku</button>
-
-
-
-
-          </div>
-        })}
-    </div>
-  )
-}
-
-export default Products
+export default Products;

@@ -9,6 +9,8 @@ import { FaCartShopping } from "react-icons/fa6";
 import NoPage from './NoPage'
 import ReviewsForm from '../components/ReviewsForm';
 import ReviewsList from '../components/ReviewsList';
+import { FaStar } from "react-icons/fa";
+
 
 
 
@@ -19,6 +21,8 @@ const OneProduct = ({addToCart}) => {
     const [data, setData] = useState({})
     const [error, setError] = useState(false)
     const { id } = useParams()
+    const [averageReview, setAverageReview] = useState(null);
+    const [reviewCount, setReviewCount] = useState(null);
 
 
     useEffect(() => {
@@ -27,12 +31,16 @@ const OneProduct = ({addToCart}) => {
               const docRef = doc(projectFirestore, "products", id);
               const document = await getDoc(docRef);
 
+
               if (!document.exists()) {
                 setError(true)
                 return
 
             } else {
-                setData(document.data());
+                const productData = document.data();
+                setData(productData)
+                setAverageReview(productData.averageReview || 0)
+                setReviewCount(productData.reviewCount || 0)
               }
           } catch (err) {
               setError(err.message);
@@ -40,7 +48,17 @@ const OneProduct = ({addToCart}) => {
       };
 
       fetchData();
-  }, [id, projectFirestore]);
+  }, [id]);
+
+  const sklonovani = (count, word) => {
+    if (count === 1 && word === "recenze") {
+        return "recenze";
+    } else if (word === "recenze") {
+        return "recenzí";
+    } else {
+        return "";
+    }
+}
 
 
   return (
@@ -52,11 +70,16 @@ const OneProduct = ({addToCart}) => {
         <img className='oneProductImg' src={data.img} alt={`${data.title}`}/>
         <h3 className='oneProductDescription'>{data.description}</h3>
         <p className='oneProductAmount'><TiTick /> Zbývá {data.amount} Kusů</p>
+        <p className='oneProductReviewCount'> {reviewCount} {sklonovani(reviewCount, "recenze")} </p>
+        <p className='oneProductReviewRating'> {averageReview} <FaStar/></p>
         <p className='oneProductPrice'>{`${data.price} Kč`}</p>
         <button type="button" className="oneProductCartButton" onClick={()=>addToCart(data)}><span className="oneProductcartIcon"><FaCartShopping /></span> Do Košíku</button>
-
-        <ReviewsList productId={id} />
+        
+        <h3 className='oneProductReviewsListTitle'>Recenze:</h3>
+        
         <ReviewsForm productId={id} />
+        
+        <ReviewsList productId={id} />
 
     
     </div>

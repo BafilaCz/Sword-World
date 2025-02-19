@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 6em;
+    margin-top: 0em;
 }
 .footerContent {
     width: 70vw;

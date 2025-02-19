@@ -10,7 +10,7 @@ const Filters = ({ onFilterChange }) => {
 
   const toggleShowFilters = () => {
     setShowFilters(!showFilters);
-  };
+  }
 
   // Handle filter changes and pass them up to the parent component
   const handleFilterChange = () => {
@@ -38,6 +38,7 @@ const Filters = ({ onFilterChange }) => {
             X
           </button>
             <h3>Filtry</h3>
+            <br />
             
 
             {/* Price Slider */}
@@ -45,7 +46,7 @@ const Filters = ({ onFilterChange }) => {
               <h4>Cena</h4>
               <div className="priceInputs">
                 <input
-                  type="number"
+                  type="number" min="0"
                   value={priceRange.min}
                   onChange={(e) =>
                     setPriceRange({ ...priceRange, min: Number(e.target.value) })
@@ -53,7 +54,7 @@ const Filters = ({ onFilterChange }) => {
                   placeholder="Min"
                 />
                 <input
-                  type="number"
+                  type="number" min="0"
                   value={priceRange.max}
                   onChange={(e) =>
                     setPriceRange({ ...priceRange, max: Number(e.target.value) })
@@ -81,7 +82,7 @@ const Filters = ({ onFilterChange }) => {
             {/* Tags */}
             <div className="filterSection">
               <h4>Štítky</h4>
-              {["sharp", "", ""].map((tag) => (
+              {["sharp", "steel", "magnum"].map((tag) => (
                 <div key={tag}>
                   <input
                     type="checkbox"

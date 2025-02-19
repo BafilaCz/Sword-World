@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, getDoc } from 'firebase/firestore';
 import { projectFirestore } from '../firebase/config';
+import useUserDetails from '../context/userDetailsContext';
 import "./ReviewsList.css"
 import { FaStar } from "react-icons/fa";
+import { useUser } from '../context/UserContext';
+import defaultPfp from '../img/defaultPfp.png'
+
+
+
+
 
 const ReviewsList = ({ productId }) => {
     const [reviews, setReviews] = useState([]);
+    const { userDetails, loading } = useUserDetails()
+    const user = useUser()
+
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -14,7 +24,6 @@ const ReviewsList = ({ productId }) => {
             const reviewsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setReviews(reviewsData);
         };
-
         fetchReviews();
     }, [productId]);
 
@@ -29,14 +38,22 @@ const ReviewsList = ({ productId }) => {
     })
 
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    
     return (
         <div className='reviewsList'>
-            <h3 className='reviewsListTitle'>Recenze:</h3>
             {reviews.map((review) => (
                 <div className='reviewsListReview' key={review.id}>
-                    {/* {console.log(formatter.format(review.timestamp.toDate()))} */}
-                    <p className="reviewsListTimestamp" >{formatter.format(review.timestamp.toDate()).toString()}</p>
-                    <p className='reviewsListUsername'><strong>{review.userName}</strong> - {review.rating} <FaStar/> </p>
+                    <p className="reviewsListTimestamp">{formatter.format(review.timestamp.toDate()).toString()}</p>
+                    <div className='reviewsListNameAndImg'>
+                        <img src={review.photo} alt="userProfilePic" referrerPolicy="no-referrer" />
+                        <p className='reviewsListUsername'>
+                            <strong>{review.userName}</strong> - {review.rating} <FaStar />
+                        </p>
+                    </div>
                     <p className='reviewsListComment'>{review.comment}</p>
                 </div>
             ))}
