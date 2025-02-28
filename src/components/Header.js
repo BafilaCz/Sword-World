@@ -164,7 +164,6 @@ const Header = ({inCart}) => {
           <div className="allLinks">
             <NavLink to={"/"}className="link lowerLink">Domů</NavLink>
             <NavLink to={"products"} className="link lowerLink">Produkty</NavLink>
-            <NavLink to={"/"} className="link lowerLink">O nás</NavLink>
           </div>
         </div>
       </nav>
@@ -208,8 +207,7 @@ const Header = ({inCart}) => {
           </form>
             <NavLink to={"/"} className="link lowerLink" onClick={burgerHandler}>Domů</NavLink>
             <NavLink to={"products"} className="link lowerLink" onClick={burgerHandler}>Produkty</NavLink>
-            <NavLink to={"/"} className="link lowerLink" onClick={burgerHandler}>O nás</NavLink>
-            <NavLink onClick={handleAccount} className="account link lowerLink">Profil</NavLink>
+            <NavLink onClick={handleAccount} className="account link lowerLink">Účet</NavLink>
           </div>
         </div>
       </nav>

@@ -90,31 +90,31 @@ function App() {
     // Save the updated cart to Firestore
     const userCartDoc = doc(projectFirestore, "carts", user.uid);
     await setDoc(userCartDoc, { cartItems: updatedProductsInCart }, { merge: true });
+    toast.dismiss()
+    toast.success("Přidáno do košíku")
   };
 
-  // Increase the quantity of a product in the cart
+  // pridani mnozstvi zbozi
   const increaseQuantity = async (productId) => {
     if (!user) {
-      toast.error("Please log in to update the cart");
-      return;
+        toast.error("Please log in to update the cart");
+        return;
     }
 
     setProductsInCart(prevProductsInCart => {
-      const updatedProducts = [...prevProductsInCart];
-      const productIndex = updatedProducts.findIndex(p => p.id === productId);
+        const updatedProducts = prevProductsInCart.map(p => 
+            p.id === productId ? { ...p, numberOfItems: p.numberOfItems + 1 } : p
+        );
 
-      if (productIndex !== -1) {
-        updatedProducts[productIndex].numberOfItems += 1;
-        setInCart(inCart + 1);
-      }
+        // update v databazi
+        const userCartDoc = doc(projectFirestore, "carts", user.uid);
+        setDoc(userCartDoc, { cartItems: updatedProducts }, { merge: true });
 
-      // Update the cart in Firestore
-      const userCartDoc = doc(projectFirestore, "carts", user.uid);
-      setDoc(userCartDoc, { cartItems: updatedProducts }, { merge: true });
-
-      return updatedProducts;
+        return updatedProducts;
     });
-  };
+
+    setInCart(prevInCart => prevInCart + 1);
+}
 
   // Decrease the quantity of a product in the cart
   const decreaseQuantity = async (productId) => {
@@ -122,35 +122,26 @@ function App() {
       toast.error("Please log in to update the cart");
       return;
     }
-
-    setProductsInCart(prevProductsInCart => {
-      const updatedProducts = [...prevProductsInCart];
-      const productIndex = updatedProducts.findIndex(p => p.id === productId);
-
-      if (productIndex !== -1) {
-        if (updatedProducts[productIndex].numberOfItems > 1) {
-          updatedProducts[productIndex].numberOfItems -= 1;
-          setInCart(inCart - 1);
-        } else {
-          // Remove the product if the quantity is 1 or less
-          updatedProducts.splice(productIndex, 1);
-          setInCart(inCart - 1);
-        }
-
-        // Update the cart in Firestore
-        const userCartDoc = doc(projectFirestore, "carts", user.uid);
-        setDoc(userCartDoc, { cartItems: updatedProducts }, { merge: true });
-      }
-
+  
+    setProductsInCart((prevProductsInCart) => {
+      const updatedProducts = prevProductsInCart.map((p) =>
+        p.id === productId ? { ...p, numberOfItems: p.numberOfItems - 1 } : p
+      ).filter((p) => p.numberOfItems > 0); // smazat pokud mnozstvi < 0
+  
+      // Update the cart in Firestore
+      const userCartDoc = doc(projectFirestore, "carts", user.uid);
+      setDoc(userCartDoc, { cartItems: updatedProducts }, { merge: true });
+  
       return updatedProducts;
     });
-  };
+  
+    // Use functional update for inCart to ensure consistency
+    setInCart((prevInCart) => prevInCart - 1);
+  }
 
-  // Clear the cart
+  // smazani veci z kosiku
   const clearCart = async () => {
     if (!user) return;
-
-    // Clear local state
     setProductsInCart([]);
     setInCart(0);
 

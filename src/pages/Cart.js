@@ -30,6 +30,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
     const { userDetails, loading } = useUserDetails();
     const user = useUser();
     const [address, setAddress] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const deliveryCosts = {
         osobni: 0,
@@ -82,28 +83,35 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
     const CompleteOrder = async (e) => {
         e.preventDefault();
 
+        if (isSubmitting) return
+        setIsSubmitting(true)
+
         if (!selectedPayment) {
-            toast.error('Vyberte způsob platby.');
-            return;
+            toast.error('Vyberte způsob platby.')
+            setIsSubmitting(false)
+            return
         }
 
         if (!selectedDelivery) {
-            toast.error('Vyberte způsob doručení.');
-            return;
+            toast.error('Vyberte způsob doručení.')
+            setIsSubmitting(false)
+            return
         }
 
         if (!deliveryAdress.trim()) {
-            toast.error('Zadejte adresu pro doručení.');
-            return;
+            toast.error('Zadejte adresu pro doručení.')
+            setIsSubmitting(false)
+            return
         }
 
         if (!user || !user.uid) {
-            toast.error('Uživatel není přihlášen.');
-            return;
+            toast.error('Uživatel není přihlášen.')
+            setIsSubmitting(false)
+            return
         }
 
         try {
-            // Add order to Firestore
+            // pridani objednavky do databaze
             await addDoc(collection(projectFirestore, 'orders'), {
                 userId: user.uid,
                 userName: firstName,
@@ -116,24 +124,26 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                 timestamp: new Date()
             });
 
-            // Update product amounts in Firestore
+            // zmena zbyvajicich kusu v databazi
             for (const product of productsInCart) {
-                const productRef = doc(projectFirestore, "products", product.id);
+                const productRef = doc(projectFirestore, "products", product.id)
                 await updateDoc(productRef, {
                     amount: increment(-product.numberOfItems)
                 });
             }
 
-            // Delete the user's cart document
-            const userCartDoc = doc(projectFirestore, "carts", user.uid);
-            await deleteDoc(userCartDoc);
+            // smazani z kosiku
+            const userCartDoc = doc(projectFirestore, "carts", user.uid)
+            await deleteDoc(userCartDoc)
 
-            toast.success('Objednávka byla úspěšně vytvořena!');
-            clearCart();
-            toggleShowCheckout();
+            toast.success('Objednávka byla úspěšně vytvořena!')
+            clearCart()
+            toggleShowCheckout()
         } catch (error) {
-            console.error('Chyba při vytváření objednávky:', error);
-            toast.error('Nastala chyba :(');
+            console.error('Chyba při vytváření objednávky:', error)
+            toast.error('Nastala chyba :(')
+        } finally {
+            setIsSubmitting(false)
         }
     };
 
@@ -305,7 +315,9 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                                         <FaCreditCard />
                                     </label>
                                 </div>
-                                <input type="submit" value={`Zaplatit (celkem ${formatNumberWithSpaces(totalPrice)} Kč)`} />
+                                <input type="submit" value={`Zaplatit (celkem ${formatNumberWithSpaces(totalPrice)} Kč)`} disabledé={isSubmitting} />
+                                <br />
+                                <br />
                             </form>
                         </div>
                     )}

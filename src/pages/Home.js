@@ -4,8 +4,13 @@ import "./Home.css"
 const Home = () => {
   return (
     <div className="home">
-      {/* PŘIDAT IMG S BANNER OBRAZKEM Z DATABAZE */}
+
       <h1 className="welcome">Vítej na Sword Worldu</h1>
+
+
+      <img src="https://firebasestorage.googleapis.com/v0/b/swordworld-10d4f.appspot.com/o/SWORD%20WORLD%20BANNER.png?alt=media&token=fb44869d-4cfc-43c2-9637-742e411f8b15" 
+      referrerPolicy="no-referrer" className="banner"></img>
+
 
       <p>Sword World je maturitní práce, která představuje funkční webový obchod specializující se na prodej mečů. Aplikace je vyvinuta v Reactu, moderní JavaScriptové knihovně pro tvorbu uživatelských rozhraní, která umožňuje vytvářet dynamické a responzivní webové stránky. Cílem projektu bylo vytvořit plnohodnotný e-shop, který je přehledný pro co nejvíce uživatelů.</p>
 
@@ -20,8 +25,7 @@ const Home = () => {
       <p> Celý projekt byl vytvořen s důrazem na responzivní design, aby byl web plně funkční na zařízeních různých velikostí, od počítačů po mobilní telefony. Kód je strukturován a komentován, aby byl snadno pochopitelný a udržovatelný. Součástí práce je také dokumentace, která popisuje architekturu aplikace, použité technologie a postupy při vývoji.</p>
 
       <p>Tato maturitní práce demonstruje nejen schopnost pracovat s moderními webovými technologiemi, ale také porozumění principům tvorby e-shopů, včetně správy produktů, uživatelského rozhraní a bezpečnosti. Projekt by mohl sloužit jako solidní základ pro další rozšíření, například integraci platební brány nebo přidání pokročiléjších funkcí</p>
-      <img src="https://i.pinimg.com/originals/07/ac/fc/07acfc8a22dd8182985a41642e98a5dc.jpg" 
-      referrerPolicy="no-referrer" className="cat"></img>
+
 
         
     </div>
