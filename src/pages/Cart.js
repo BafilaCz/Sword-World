@@ -1,9 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import "./Cart.css";
-import Map from "../components/Map"
+import Map from "../components/Map";
 import { projectFirestore } from '../firebase/config';
-import { addDoc, collection, doc, updateDoc, increment, deleteDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc, increment, deleteDoc, getDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { toast } from 'react-toastify';
@@ -29,8 +28,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
     const [showCheckout, setShowCheckout] = useState(false);
     const { userDetails, loading } = useUserDetails();
     const user = useUser();
-    const [address, setAddress] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const deliveryCosts = {
         osobni: 0,
@@ -42,7 +40,30 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
         setShowCheckout(!showCheckout);
     };
 
+    // Validate stock before completing the order
+    const validateStock = async (productsInCart) => {
+        for (const product of productsInCart) {
+            if (!product || !product.id) {
+                console.error("Invalid product:", product);
+                return false;
+            }
 
+            const productRef = doc(projectFirestore, "products", product.id);
+            const productSnap = await getDoc(productRef);
+
+            if (!productSnap.exists()) {
+                console.error("Product not found in database:", product.id);
+                return false;
+            }
+
+            const availableStock = productSnap.data().amount;
+            if (typeof availableStock !== "number" || product.numberOfItems > availableStock) {
+                console.error("Insufficient stock for product:", product.id);
+                return false;
+            }
+        }
+        return true; // All products have sufficient stock
+    };
 
     // Calculate the initial price of products in the cart
     useEffect(() => {
@@ -83,35 +104,44 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
     const CompleteOrder = async (e) => {
         e.preventDefault();
 
-        if (isSubmitting) return
-        setIsSubmitting(true)
+        if (isSubmitting) return;
+        setIsSubmitting(true);
 
+        // Validate required fields
         if (!selectedPayment) {
-            toast.error('Vyberte způsob platby.')
-            setIsSubmitting(false)
-            return
+            toast.error('Vyberte způsob platby.');
+            setIsSubmitting(false);
+            return;
         }
 
         if (!selectedDelivery) {
-            toast.error('Vyberte způsob doručení.')
-            setIsSubmitting(false)
-            return
+            toast.error('Vyberte způsob doručení.');
+            setIsSubmitting(false);
+            return;
         }
 
         if (!deliveryAdress.trim()) {
-            toast.error('Zadejte adresu pro doručení.')
-            setIsSubmitting(false)
-            return
+            toast.error('Zadejte adresu pro doručení.');
+            setIsSubmitting(false);
+            return;
         }
 
         if (!user || !user.uid) {
-            toast.error('Uživatel není přihlášen.')
-            setIsSubmitting(false)
-            return
+            toast.error('Uživatel není přihlášen.');
+            setIsSubmitting(false);
+            return;
+        }
+
+        // Validate stock before proceeding
+        const isStockValid = await validateStock(productsInCart);
+        if (!isStockValid) {
+            toast.error('Některé položky v košíku překračují dostupné množství na skladě.');
+            setIsSubmitting(false);
+            return;
         }
 
         try {
-            // pridani objednavky do databaze
+            // Add the order to the database
             await addDoc(collection(projectFirestore, 'orders'), {
                 userId: user.uid,
                 userName: firstName,
@@ -121,29 +151,29 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                 paymentMethod: selectedPayment,
                 totalPrice: totalPrice,
                 products: productsInCart,
-                timestamp: new Date()
+                timestamp: new Date(),
             });
 
-            // zmena zbyvajicich kusu v databazi
+            // Update the remaining stock in the database
             for (const product of productsInCart) {
-                const productRef = doc(projectFirestore, "products", product.id)
+                const productRef = doc(projectFirestore, "products", product.id);
                 await updateDoc(productRef, {
-                    amount: increment(-product.numberOfItems)
+                    amount: increment(-product.numberOfItems),
                 });
             }
 
-            // smazani z kosiku
-            const userCartDoc = doc(projectFirestore, "carts", user.uid)
-            await deleteDoc(userCartDoc)
+            // Clear the cart
+            const userCartDoc = doc(projectFirestore, "carts", user.uid);
+            await deleteDoc(userCartDoc);
 
-            toast.success('Objednávka byla úspěšně vytvořena!')
-            clearCart()
-            toggleShowCheckout()
+            toast.success('Objednávka byla úspěšně vytvořena!');
+            clearCart();
+            toggleShowCheckout();
         } catch (error) {
-            console.error('Chyba při vytváření objednávky:', error)
-            toast.error('Nastala chyba :(')
+            console.error('Chyba při vytváření objednávky:', error);
+            toast.error('Nastala chyba :(');
         } finally {
-            setIsSubmitting(false)
+            setIsSubmitting(false);
         }
     };
 
@@ -153,7 +183,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                 <MdOutlineRemoveShoppingCart className="cartEmptyIcon" />
                 <h1>Váš košík je prázdný</h1>
             </div>
-          );
+        );
     }
 
     return (
@@ -161,7 +191,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
             <div className='cartPage'>
                 <div className='cartContent'>
                     {productsInCart.map((oneProduct, index) => {
-                        const { id, title, price, img, numberOfItems } = oneProduct;
+                        const { id, title, price, img, numberOfItems, amount } = oneProduct;
 
                         return (
                             <div className='itemsInCart' key={`${id}-${index}`}>
@@ -173,7 +203,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                                 <p className='cartItemCount'>{numberOfItems} x</p>
                                 <button
                                     onClick={() => {
-                                        increaseQuantity(id);
+                                        increaseQuantity(oneProduct);
                                         updateTotalPrice(price, true);
                                     }}
                                 >
@@ -181,7 +211,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                                 </button>
                                 <button
                                     onClick={() => {
-                                        decreaseQuantity(id);
+                                        decreaseQuantity(oneProduct);
                                         updateTotalPrice(price, false);
                                     }}
                                 >
@@ -224,9 +254,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                                 />
 
                                 <p className="cartCheckoutAdress">Adresa pro doručení</p>
-
                                 <Map onLocationSelect={setDeliveryAdress} />
-
 
                                 <p className="cartCheckoutDelivery">Zvolte způsob doručení</p>
                                 <div className="deliveryOptions">
@@ -315,7 +343,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                                         <FaCreditCard />
                                     </label>
                                 </div>
-                                <input type="submit" value={`Zaplatit (celkem ${formatNumberWithSpaces(totalPrice)} Kč)`} disabledé={isSubmitting} />
+                                <input type="submit" value={`Zaplatit (celkem ${formatNumberWithSpaces(totalPrice)} Kč)`} disabled={isSubmitting} />
                                 <br />
                                 <br />
                             </form>

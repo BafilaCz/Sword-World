@@ -74,7 +74,9 @@ function App() {
       return;
     }
 
-    setInCart(inCart + 1);
+  
+    if (product.amount > 0){
+      // provede se jen pokud je amount (zbyvajici kusy) > 0
 
     const updatedProductsInCart = [...productsInCart];
     const existingProductIndex = updatedProductsInCart.findIndex(p => p.id === product.id);
@@ -84,26 +86,34 @@ function App() {
     } else {
       updatedProductsInCart.push({ ...product, numberOfItems: 1 });
     }
-
     setProductsInCart(updatedProductsInCart);
-
-    // Save the updated cart to Firestore
+    // ulozi kosik do databaze
     const userCartDoc = doc(projectFirestore, "carts", user.uid);
     await setDoc(userCartDoc, { cartItems: updatedProductsInCart }, { merge: true });
+
+    setInCart(inCart + 1)
+
     toast.dismiss()
     toast.success("Přidáno do košíku")
-  };
+    }
+    else{
+      toast.dismiss()
+      toast.error("zboží momentálně nemáme na skladě")
+    }
+  }
+
 
   // pridani mnozstvi zbozi
-  const increaseQuantity = async (productId) => {
+  const increaseQuantity = async (product) => {
     if (!user) {
         toast.error("Please log in to update the cart");
         return;
     }
 
+
     setProductsInCart(prevProductsInCart => {
         const updatedProducts = prevProductsInCart.map(p => 
-            p.id === productId ? { ...p, numberOfItems: p.numberOfItems + 1 } : p
+            p.id === product.id ? { ...p, numberOfItems: p.numberOfItems + 1 } : p
         );
 
         // update v databazi
@@ -117,21 +127,22 @@ function App() {
 }
 
   // Decrease the quantity of a product in the cart
-  const decreaseQuantity = async (productId) => {
+  const decreaseQuantity = async (product) => {
     if (!user) {
       toast.error("Please log in to update the cart");
       return;
     }
+
+   
   
     setProductsInCart((prevProductsInCart) => {
       const updatedProducts = prevProductsInCart.map((p) =>
-        p.id === productId ? { ...p, numberOfItems: p.numberOfItems - 1 } : p
+        p.id === product.id ? { ...p, numberOfItems: p.numberOfItems - 1 } : p
       ).filter((p) => p.numberOfItems > 0); // smazat pokud mnozstvi < 0
   
       // Update the cart in Firestore
       const userCartDoc = doc(projectFirestore, "carts", user.uid);
       setDoc(userCartDoc, { cartItems: updatedProducts }, { merge: true });
-  
       return updatedProducts;
     });
   
