@@ -4,12 +4,14 @@ import "./Home.css"
 const Home = () => {
   return (
     <div className="home">
+      <div className="homeContent">
 
       <h1 className="welcome">Vítej na Sword Worldu</h1>
 
-
-      <img src="https://firebasestorage.googleapis.com/v0/b/swordworld-10d4f.appspot.com/o/SWORD%20WORLD%20BANNER.png?alt=media&token=fb44869d-4cfc-43c2-9637-742e411f8b15" 
-      referrerPolicy="no-referrer" className="banner"></img>
+      <div className="banner-container">
+        <img src="https://i.redd.it/memi1596f0e51.png" 
+        referrerPolicy="no-referrer" className="banner"></img>
+      </div>
 
 
       <p>Sword World je maturitní práce, která představuje funkční webový obchod specializující se na prodej mečů. Aplikace je vyvinuta v Reactu, moderní JavaScriptové knihovně pro tvorbu uživatelských rozhraní, která umožňuje vytvářet dynamické a responzivní webové stránky. Cílem projektu bylo vytvořit plnohodnotný e-shop, který je přehledný pro co nejvíce uživatelů.</p>
@@ -22,16 +24,14 @@ const Home = () => {
 
       <p> Nákupní proces je navržen tak, aby byl co nejjednodušší. Uživatelé mohou přidávat produkty do košíku, upravovat jejich množství a následně přejít k platbě, kde vyplní své údaje, zvolí způsob platby a dopravy. Aplikace také zahrnuje základní validaci formulářů, aby byla zajištěna správnost zadaných údajů.</p>
 
-      <p> Celý projekt byl vytvořen s důrazem na responzivní design, aby byl web plně funkční na zařízeních různých velikostí, od počítačů po mobilní telefony. Kód je strukturován a komentován, aby byl snadno pochopitelný a udržovatelný. Součástí práce je také dokumentace, která popisuje architekturu aplikace, použité technologie a postupy při vývoji.</p>
+      <p> Celý projekt byl vytvořen s důrazem na responzivní design, aby byl web plně funkční na zařízeních různých velikostí, od počítačů po mobilní telefony. Kód je strukturován a komentován, aby byl snadno pochopitelný a udržovatelný. Součástí práce je také <a href="/dokumentace.txt" download="dokumentace.txt" className="downloadDoc">dokumentace</a>, která popisuje architekturu aplikace, použité technologie a postupy při vývoji.</p>
 
       <p>Tato maturitní práce demonstruje nejen schopnost pracovat s moderními webovými technologiemi, ale také porozumění principům tvorby e-shopů, včetně správy produktů, uživatelského rozhraní a bezpečnosti. Projekt by mohl sloužit jako solidní základ pro další rozšíření, například integraci platební brány nebo přidání pokročiléjších funkcí</p>
 
 
-        
+      </div>
     </div>
   )
 }
 
 export default Home
-
-// #121212

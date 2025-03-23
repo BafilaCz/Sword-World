@@ -1,6 +1,63 @@
 .home{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: #121212;
 }
+.homeContent {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #e0e0e0;
+    background-color: #121212;
+    line-height: 1.6;
+  }
+
+  .welcome {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: red 5px 5px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .banner {
+    width: 100%;
+    max-height: 40em;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .home p {
+    font-size: 1.1rem;
+    margin-bottom: 2em;
+    text-align: justify;
+  }
+  
+  @media (max-width: 768px) {
+    .welcome {
+      font-size: 2rem;
+    }
+  
+    .home p {
+      font-size: 1rem;
+    }
+  
+    .banner {
+      max-height: 300px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .welcome {
+      font-size: 1.8rem;
+    }
+  
+    .home p {
+      font-size: 0.9rem;
+    }
+  
+    .banner {
+      max-height: 200px;
+    }
+  }

@@ -30,7 +30,7 @@ const Register = () => {
 
             // pokud je ristrovany, nastavi jmeno a email do databaze
             if(user){
-                await setDoc(doc(projectFirestore, "Users", user.uid), {email: user.email, firstName: firstName, lastName: lastName, photo: "https://firebasestorage.googleapis.com/v0/b/swordworld-10d4f.appspot.com/o/defaultPfp.png?alt=media&token=68107107-020d-4bd6-bb02-efbe30e32948", cart: [], })
+                await setDoc(doc(projectFirestore, "Users", user.uid), {email: user.email, firstName: firstName, lastName: lastName, photo: "https://firebasestorage.googleapis.com/v0/b/swordworld-10d4f.appspot.com/o/Default_pfp.svg.png?alt=media&token=c370f28b-c686-4670-955a-0f6773d29cc3", cart: [], })
             }
             toast.success("Registrováno úspěšně", {position: 'top-center'})
             window.location = "/"

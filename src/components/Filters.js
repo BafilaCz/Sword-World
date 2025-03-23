@@ -8,29 +8,35 @@ const Filters = ({ onFilterChange }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
 
+  // prepinani filtrovaciho okna
   const toggleShowFilters = () => {
     setShowFilters(!showFilters);
   }
 
-  // Handle filter changes and pass them up to the parent component
+  // aplikovani filtru a poslani do parent componentu
   const handleFilterChange = () => {
     onFilterChange({
       priceRange,
       selectedTags,
       selectedColor,
     });
-  };
+  }
+
+  // nastaveni filtru na default
   const handleFilterReset = () => {
     setPriceRange({ min: 0, max: 100000})
     setSelectedColor("")
     setSelectedTags([])
   }
   return (
+
+
     <div className="filters">
+      {/* prepinaci tlacitko */}
       <button className="showFiltersButton" onClick={toggleShowFilters}>
         <IoFilterOutline /> Filtrovat
       </button>
-
+      {/* filtrove okno */}
       {showFilters && (
         <div className="filtersOverlay">
           <div className="filtersContent">
@@ -41,7 +47,7 @@ const Filters = ({ onFilterChange }) => {
             <br />
             
 
-            {/* Price Slider */}
+            {/* cenový slider */}
             <div className="filterSection">
               <h4>Cena</h4>
               <div className="priceInputs">
@@ -63,7 +69,7 @@ const Filters = ({ onFilterChange }) => {
                 />
               </div>
             </div>
-              {/* Color Picker */}
+              {/* picker barvy */}
               <div className="filterSection">
               <h4>Barva</h4>
               <select
@@ -79,7 +85,7 @@ const Filters = ({ onFilterChange }) => {
             </div>
 
 
-            {/* Tags */}
+            {/* tagy */}
             <div className="filterSection">
               <h4>Štítky</h4>
               {["sharp", "steel", "magnum"].map((tag) => (
@@ -100,7 +106,7 @@ const Filters = ({ onFilterChange }) => {
               ))}
             </div>
 
-            {/* Buttons */}
+            {/* tlacitka*/}
             <div className="filterButtons">
               <button className="resetFiltersButton"
                 onClick={handleFilterReset}>

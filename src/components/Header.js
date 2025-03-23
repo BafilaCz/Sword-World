@@ -3,17 +3,13 @@ import React, { useState, useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import logo from '../img/banner.png';
-import defaultPfp from '../img/defaultPfp.png'
 import useUserDetails from '../context/userDetailsContext'
 import { collection, onSnapshot } from "firebase/firestore";
 import { projectFirestore } from '../firebase/config'
-import { MdOutlineSearch } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 import { FaCartShopping } from "react-icons/fa6";
 import { NavLink, Link} from "react-router-dom";
 import { useUser } from '../context/UserContext';
-import Home from "../pages/Home";
-import Products from "../pages/Products";
 
 
 const Header = ({inCart}) => {
@@ -27,7 +23,7 @@ const Header = ({inCart}) => {
 
 
   useEffect(() => {
-    // nastavi data na data o produktech z databaze
+    // nastavi do "data" data o produktech z databaze
     const colRef = collection(projectFirestore, "products");
     const unsubscribe = onSnapshot(colRef, (snapshot) => {
       if (snapshot.empty) {
@@ -43,10 +39,11 @@ const Header = ({inCart}) => {
       }
     }, 
     (err) => setError(err.message));
-    // Cleanup subscription on unmount
+    // cleanup, nutny pro predchazeni chybam
     return () => unsubscribe();
   }, [])
 
+  // 
   const handleInput = (e) => {
     const searchTerm = e.target.value;
     setSearchedWord(searchTerm);
@@ -62,7 +59,7 @@ const Header = ({inCart}) => {
         setSearchedProducts(result);
     } 
   }
-  
+  // vyhledavani v db přes hledany vyraz
   const handleSearch = (e) => {
     e.preventDefault()
   
@@ -109,14 +106,6 @@ const Header = ({inCart}) => {
     setSearchedProducts([])
   }
 
-  // if (loading) {
-  //   return <p className='loading'>Loading...</p>;  // Display loading message
-  // }
-
-  // if (!user) {
-  //     return null;  // Don't render anything if user is not logged in
-  // }
-
   return (
     <header className="header">
       <nav className="pcNav">
@@ -138,16 +127,13 @@ const Header = ({inCart}) => {
             </div>
           </div>
 
-            {/* <button type="submit" className="searchButton">
-              <MdOutlineSearch />
-            </button> */}
 
             
           </form>
        
           <div className="cart link upperLink" onClick={handleCart}>
           <FaCartShopping /> 
-          <br />Cart
+          <br />Košík
           <p className="inCart" style={{ display: inCart === 0 ? 'none' : 'flex' }}>{inCart}</p>
           </div>
 
@@ -175,7 +161,7 @@ const Header = ({inCart}) => {
           </Link>
 
           <div onClick={handleCart} className="cart link upperLink">
-          <FaCartShopping /> <br /> Cart
+          <FaCartShopping /> <br /> Košík
           <p className="inCart" style={{ display: inCart === 0 ? 'none' : 'flex' }}>{inCart}</p>
           </div>
         </div>

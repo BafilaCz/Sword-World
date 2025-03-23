@@ -12,7 +12,6 @@ import Home from './pages/Home';
 import NoPage from './pages/NoPage';
 import Products from './pages/Products';
 import OneProduct from './pages/OneProduct';
-import Upload from './pages/Upload';
 import Cart from './pages/Cart';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -70,7 +69,8 @@ function App() {
   // Add a product to the cart
   const addToCart = async (product) => {
     if (!user) {
-      toast.error("Please log in to add items to the cart");
+      toast.dismiss()
+      toast.error("Pro přidání do košíku se přihlašte");
       return;
     }
 
@@ -173,7 +173,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NoPage />} />
-          <Route path="upload" element={<Upload />} />
           <Route path="products" element={<Products inCart={inCart} addToCart={addToCart} productsInCart={productsInCart} />} />
           <Route
             path="cart"

@@ -1,6 +1,6 @@
 import "./Login.css"
 import React from 'react'
-import { projectFirestore, auth } from "../firebase/config"
+import { auth } from "../firebase/config"
 import { signInWithEmailAndPassword} from "firebase/auth"
 import { useState, useEffect } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
