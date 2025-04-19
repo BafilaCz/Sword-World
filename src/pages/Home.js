@@ -9,7 +9,7 @@ const Home = () => {
       <h1 className="welcome">Vítej na Sword Worldu</h1>
 
       <div className="banner-container">
-        <img src="https://i.redd.it/memi1596f0e51.png" 
+        <img src="https://firebasestorage.googleapis.com/v0/b/swordworld-10d4f.appspot.com/o/homebanner.png?alt=media&token=c8ec5f34-50dc-4c23-9cac-288bf2cbefbc" 
         referrerPolicy="no-referrer" className="banner"></img>
       </div>
 
@@ -24,7 +24,7 @@ const Home = () => {
 
       <p> Nákupní proces je navržen tak, aby byl co nejjednodušší. Uživatelé mohou přidávat produkty do košíku, upravovat jejich množství a následně přejít k platbě, kde vyplní své údaje, zvolí způsob platby a dopravy. Aplikace také zahrnuje základní validaci formulářů, aby byla zajištěna správnost zadaných údajů.</p>
 
-      <p> Celý projekt byl vytvořen s důrazem na responzivní design, aby byl web plně funkční na zařízeních různých velikostí, od počítačů po mobilní telefony. Kód je strukturován a komentován, aby byl snadno pochopitelný a udržovatelný. Součástí práce je také <a href="/dokumentace.txt" download="dokumentace.txt" className="downloadDoc">dokumentace</a>, která popisuje architekturu aplikace, použité technologie a postupy při vývoji.</p>
+      <p> Celý projekt byl vytvořen s důrazem na responzivní design, aby byl web plně funkční na zařízeních různých velikostí, od počítačů po mobilní telefony. Kód je strukturován a komentován, aby byl snadno pochopitelný a udržovatelný. Součástí práce je také <a href="/dokumentace.docx" download="dokumentace.docx" className="downloadDoc">dokumentace</a>, která popisuje architekturu aplikace, použité technologie a postupy při vývoji.</p>
 
       <p>Tato maturitní práce demonstruje nejen schopnost pracovat s moderními webovými technologiemi, ale také porozumění principům tvorby e-shopů, včetně správy produktů, uživatelského rozhraní a bezpečnosti. Projekt by mohl sloužit jako solidní základ pro další rozšíření, například integraci platební brány nebo přidání pokročiléjších funkcí</p>
 
