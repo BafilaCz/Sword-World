@@ -31,7 +31,7 @@ const Products = ({ addToCart }) => {
             }
         }, (err) => setError(err.message));
 
-        // Cleanup subscription on unmount
+        // Cleanup funkce (nutna)
         return () => unsubscribe();
     }, []);
 
@@ -86,7 +86,7 @@ const Products = ({ addToCart }) => {
             });
         }
 
-        setNewData(sortedData); // Update the state with the sorted data
+        setNewData(sortedData);
     };
 
     const sklonovani = (count, word) => {
@@ -104,12 +104,12 @@ const Products = ({ addToCart }) => {
             {error && <p>{error}</p>}
 
             <div className="filtersAndSortingContainer">
-                {/* Filters Section */}
+                {/* Filtry */}
                 <div className="filtersSection">
                     <Filters onFilterChange={handleFilterChange} />
                 </div>
 
-                {/* Sorting Section */}
+                {/* Řazeni */}
                 <div className="sortingSection">
                     <button className="sortingButton" onClick={() => handleSortBy("reviews")}>Nejlépe hodnocené</button>
                     <button className="sortingButton" onClick={() => handleSortBy("priceLow")}>Nejlevnější</button>
@@ -117,7 +117,6 @@ const Products = ({ addToCart }) => {
                 </div>
             </div>
 
-            {/* Render Products */}
             {newData.length === 0 ? (
                 <NothingFound />
             ) : (

@@ -1,4 +1,4 @@
-"use client"; // Ensure this is a client component
+"use client"; // zajisti ze se jedna o client component
 
 import React, { useState, useRef } from 'react';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
@@ -15,8 +15,8 @@ const mapCenter = {
 };
 
 const Map = ({ onLocationSelect }) => {
-  const [markerPosition, setMarkerPosition] = useState(null);
-  const [searchInput, setSearchInput] = useState(''); // State for search bar input
+  const [markerPosition, setMarkerPosition] = useState(null); // pozice markeru
+  const [searchInput, setSearchInput] = useState(''); // text v search baru
   const autocompleteRef = useRef(null);
 
   const { isLoaded, loadError } = useLoadScript({
@@ -32,13 +32,13 @@ const Map = ({ onLocationSelect }) => {
     const lng = event.latLng.lng();
     setMarkerPosition({ lat, lng });
 
-    // Reverse geocode to get the address
+    // prevaděni geocodu na konkretni mista pres google api
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location: { lat, lng } }, (results, status) => {
       if (status === 'OK' && results[0]) {
         const address = results[0].formatted_address;
-        onLocationSelect(address); // Pass the address to the parent component
-        setSearchInput(address); // Update the search bar input
+        onLocationSelect(address); // posle adresu do parent componentu
+        setSearchInput(address); // nastavi search bar na konkretni nazev
       } else {
         console.error('Geocoder failed:', status);
       }
@@ -52,8 +52,8 @@ const Map = ({ onLocationSelect }) => {
       const lng = place.geometry.location.lng();
       setMarkerPosition({ lat, lng });
       const address = place.formatted_address || place.name;
-      onLocationSelect(address); // Pass the address to the parent component
-      setSearchInput(address); // Update the search bar input
+      onLocationSelect(address); // posle adresu do parent componentu
+      setSearchInput(address); // nastavi search bar na konkretni nazev
     } else {
       console.error('No geometry found for the selected place.');
     }

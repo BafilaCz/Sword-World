@@ -3,18 +3,17 @@ import "./SignInWithGoogle.css";
 import { googleAuthProvider, auth, projectFirestore } from "../firebase/config";
 import { signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import Cart from '../pages/Cart';
 
 const SignInWithGoogle = () => {
 
-
-
     const googleLogin = () => {
+        // funkce firebase, prihlasini pres google
         signInWithPopup(auth, googleAuthProvider).then(async (result) => {
             console.log(result)
             if(result.user){
                 const user = result.user
                 await setDoc(doc(projectFirestore, "Users", user.uid), {
+                    // specifikace dat, ktere beru z google učtu
                     email: user.email, 
                     firstName: user.displayName, 
                     lastName: "", 

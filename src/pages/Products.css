@@ -28,7 +28,6 @@
 }
 .products{
     margin: auto;
-    /* min-height: 100vh; */
     max-width: 90vw;
     display: flex;
     flex-direction: row;
@@ -47,15 +46,15 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     gap: 0.5em;
     margin: 0.03em;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     background-color: #fff;
 
 }
 
 .oneProducts:hover {
-    transform: scale(1.05); /* Scale up the box */
-    z-index: 10; /* Ensure the hovered box is on top */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Optional: add shadow for better effect */
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .productImg{
@@ -68,8 +67,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff; /* Optional: background color for the container */
-    overflow: hidden; /* Hide any overflow from the images */
+    background-color: #fff;
+    overflow: hidden;
     box-sizing: border-box;
 }
 .productTitle{
@@ -173,7 +172,6 @@
 }
 .products{
     margin: auto;
-    /* min-height: 100vh; */
     max-width: 90vw;
     display: flex;
     flex-direction: row;
@@ -192,15 +190,15 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     gap: 0.5em;
     margin: 0.03em;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     background-color: #fff;
 
 }
 
 .oneProducts:hover {
-    transform: scale(1.05); /* Scale up the box */
-    z-index: 10; /* Ensure the hovered box is on top */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Optional: add shadow for better effect */
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .productImg{
@@ -213,8 +211,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff; /* Optional: background color for the container */
-    overflow: hidden; /* Hide any overflow from the images */
+    background-color: #fff;
+    overflow: hidden;
     box-sizing: border-box;
 }
 .productTitle{

@@ -76,12 +76,8 @@ const OneProduct = ({addToCart}) => {
         <button type="button" className="oneProductCartButton" onClick={()=>addToCart(data)}><span className="oneProductcartIcon"><FaCartShopping /></span> Do Košíku</button>
         
         <h3 className='oneProductReviewsListTitle'>Recenze:</h3>
-        
         <ReviewsForm productId={id} />
-        
         <ReviewsList productId={id} />
-
-    
     </div>
     )
   )

@@ -28,14 +28,12 @@
     color: #fff;
 }
 
-/* Form labels */
 .loginInputTag{
     margin: 10px 0 5px;
     font-size: 14px;
     color: #fff;
 }
 
-/* Input fields */
 .loginForm input{
     width: calc(100%);
     padding: 10px;
@@ -45,7 +43,6 @@
     font-size: 16px;
 }
 
-/* Submit button */
 .loginForm input[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -61,7 +58,6 @@
 .loginForm input[type="submit"]:hover {
     background-color: red;
 }
-
 
 .loginForm p a {
     color: red;

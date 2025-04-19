@@ -5,7 +5,7 @@ import { useUser } from './UserContext'
 import { toast } from 'react-toastify'
 
 const useUserDetails = () => {
-  const user = useUser();  // Get the authenticated user
+  const user = useUser();  // data o prihlasenem uzivately
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -25,14 +25,14 @@ const useUserDetails = () => {
           console.error("Error fetching user data:", error);
           toast.error("Failed to fetch user data");
         } finally {
-          setLoading(false);  // Set loading to false once the data is fetched
+          setLoading(false);  // loading ukonce
         }
       } else {
-        setLoading(false);  // Ensure loading is false even if user is not logged in
+        setLoading(false);  // zajisti aby byl loading u konce i kdyz uzivatel neni prihlaseny
       }
     };
 
-    if (user !== undefined) {  // Only fetch if user is not undefined
+    if (user !== undefined) {  // fetchnout pouze kdyz je uzivatel prihlaseny
       fetchUserData();
     }
   }, [user]);

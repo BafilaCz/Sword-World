@@ -185,10 +185,6 @@ const Header = ({inCart}) => {
             </div>
           </div>
 
-            {/* <button type="submit" className="searchButton">
-              <MdOutlineSearch />
-            </button> */}
-
             
           </form>
             <NavLink to={"/"} className="link lowerLink" onClick={burgerHandler}>Domů</NavLink>

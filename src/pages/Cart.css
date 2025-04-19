@@ -24,8 +24,8 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    border-bottom: 1px solid #ddd; /* Optional: to separate items */
-    padding: 10px 0; /* Optional: padding around each item */
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
 }
 .itemsInCart *{
     margin: 0.5em;
@@ -116,7 +116,6 @@
     font-weight: 500;
 }
 
-/* checkout form */
 .cartCheckout {
     width: 100vw;
     height: 100vh;
@@ -239,8 +238,6 @@ input[type="submit"]:hover {
 .closeCheckoutButton:hover {
     color: red;
 }
-
-/* prazdny kosik */
 
 .cartEmptyContainer{
     display: flex;

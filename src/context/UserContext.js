@@ -1,20 +1,20 @@
-// UserContext.js
+// Vlastni Hook na ziskani uzivatelskych dat
+
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { auth } from '../firebase/config';
 
-// Create the context
 const UserContext = createContext();
 
-// Create a provider component
+// vytvareni provideru
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);  // Set the user state when auth state changes
+      setUser(user);  // kdyz se zmeni authentifikce, ulozi se
     });
 
-    return () => unsubscribe();  // Cleanup on unmount
+    return () => unsubscribe();  // Cleanup funkce
   }, []);
 
   return (
@@ -24,5 +24,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the UserContext
 export const useUser = () => useContext(UserContext);

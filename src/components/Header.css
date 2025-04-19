@@ -11,7 +11,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* overflow: hidden; */
 
   }
   
@@ -151,8 +150,6 @@
   }
   .searchedProductsContent{
     z-index: 2;
-    /* width: 70vw;
-    height: 70vh; */
     display: flex;
     position: absolute;
     flex-direction: column;
@@ -160,8 +157,6 @@
     justify-content: center;
     z-index: 2;
     color: #fff;
-    /* top: 100%; */
-    /* left: 0px; */
     overflow: visible;
     
     
@@ -185,10 +180,6 @@
 
   }
 
-  /* .searchedProductsContent *{
-    z-index: 2;
-
-  } */
   .searchedProducts{
     display: flex;
     flex-direction: column;
@@ -202,7 +193,7 @@
   }
   
   
-  /* Mobiles */
+  /* MOBILY */
   .mobileNav {
     display: none;
   }

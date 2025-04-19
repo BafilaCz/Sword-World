@@ -36,7 +36,7 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  // Fetch the user's cart from Firestore
+  // Fetchnuti user cart z databaze
   const fetchCart = async (user) => {
     if (user) {
       const userCartDoc = doc(projectFirestore, "carts", user.uid);
@@ -53,20 +53,8 @@ function App() {
     }
   };
 
-  // Fetch all products from Firestore (if needed)
-  const fetchProducts = async () => {
-    const productsCollection = collection(projectFirestore, "products");
-    const snapshot = await getDocs(productsCollection);
 
-    const products = snapshot.docs.map((doc) => ({
-      id: doc.id, // Include the Firestore document ID
-      ...doc.data(), // Include all other fields from the document
-    }));
-
-    return products;
-  };
-
-  // Add a product to the cart
+  // přidání produktů do košíku
   const addToCart = async (product) => {
     if (!user) {
       toast.dismiss()
@@ -76,7 +64,7 @@ function App() {
 
   
     if (product.amount > 0){
-      // provede se jen pokud je amount (zbyvajici kusy) > 0
+      // provede se jen pokud je amount (zbývajici kusy) > 0
 
     const updatedProductsInCart = [...productsInCart];
     const existingProductIndex = updatedProductsInCart.findIndex(p => p.id === product.id);
@@ -87,7 +75,7 @@ function App() {
       updatedProductsInCart.push({ ...product, numberOfItems: 1 });
     }
     setProductsInCart(updatedProductsInCart);
-    // ulozi kosik do databaze
+    // uloží kosik do databaze
     const userCartDoc = doc(projectFirestore, "carts", user.uid);
     await setDoc(userCartDoc, { cartItems: updatedProductsInCart }, { merge: true });
 
@@ -103,7 +91,7 @@ function App() {
   }
 
 
-  // pridani mnozstvi zbozi
+  // přidání mnozstvi zbozi v kosiku
   const increaseQuantity = async (product) => {
     if (!user) {
         toast.error("Please log in to update the cart");
@@ -116,38 +104,36 @@ function App() {
             p.id === product.id ? { ...p, numberOfItems: p.numberOfItems + 1 } : p
         );
 
-        // update v databazi
+        // update kosiku v db
         const userCartDoc = doc(projectFirestore, "carts", user.uid);
         setDoc(userCartDoc, { cartItems: updatedProducts }, { merge: true });
 
         return updatedProducts;
     });
-
-    setInCart(prevInCart => prevInCart + 1);
+   // updatuje indikator mnozstvi v kosiku (inCart)
+    setInCart(prevInCart => prevInCart + 1)
 }
 
-  // Decrease the quantity of a product in the cart
+  // odebrani mnozstvi zbozi v kosiku
   const decreaseQuantity = async (product) => {
     if (!user) {
       toast.error("Please log in to update the cart");
       return;
     }
-
    
-  
     setProductsInCart((prevProductsInCart) => {
       const updatedProducts = prevProductsInCart.map((p) =>
         p.id === product.id ? { ...p, numberOfItems: p.numberOfItems - 1 } : p
       ).filter((p) => p.numberOfItems > 0); // smazat pokud mnozstvi < 0
   
-      // Update the cart in Firestore
+      // update kosiku v db
       const userCartDoc = doc(projectFirestore, "carts", user.uid);
       setDoc(userCartDoc, { cartItems: updatedProducts }, { merge: true });
       return updatedProducts;
     });
   
-    // Use functional update for inCart to ensure consistency
-    setInCart((prevInCart) => prevInCart - 1);
+    // updatuje indikator mnozstvi v kosiku (inCart)
+    setInCart((prevInCart) => prevInCart - 1)
   }
 
   // smazani veci z kosiku
@@ -156,7 +142,7 @@ function App() {
     setProductsInCart([]);
     setInCart(0);
 
-    // Clear Firestore cart document
+    // Smazani z db
     const userCartDoc = doc(projectFirestore, "carts", user.uid);
     await setDoc(userCartDoc, { cartItems: [] }, { merge: true });
   }
@@ -164,7 +150,8 @@ function App() {
   // funkce pro formátování stringu aby dělal mezery po třech číslicích
   const formatNumberWithSpaces = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
+  } 
+  
 
   return (
     <BrowserRouter>

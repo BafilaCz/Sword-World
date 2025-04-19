@@ -28,8 +28,31 @@ const Filters = ({ onFilterChange }) => {
     setSelectedColor("")
     setSelectedTags([])
   }
-  return (
 
+  const prekladac = (slovo) => {
+    switch(slovo) {
+      case "black":
+        return "černá"
+      case "blue":
+        return "modrá"
+      case "red":
+        return "červená"
+      case "brown":
+        return "hnědá"
+      case "white":
+        return "bílá"
+      case "yellow":
+        return "žlutá"
+      case "green":
+        return "zelená"
+      case "gray":
+        return "šedá"
+      default:
+        return ""
+    }
+  }
+
+  return (
 
     <div className="filters">
       {/* prepinaci tlacitko */}
@@ -78,7 +101,7 @@ const Filters = ({ onFilterChange }) => {
                 <option value="">Vše</option>
                 {["black", "brown", "blue", "red", "white"].map((color) => (
                   <option key={color} value={color}>
-                    {color}
+                    {prekladac(color)}
                   </option>
                 ))}
               </select>

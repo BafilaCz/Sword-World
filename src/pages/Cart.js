@@ -40,7 +40,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
         setShowCheckout(!showCheckout);
     };
 
-    // Validate stock before completing the order
+    // Validace objednavky pred dokoncenim
     const validateStock = async (productsInCart) => {
         for (const product of productsInCart) {
             if (!product || !product.id) {
@@ -62,10 +62,10 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                 return false;
             }
         }
-        return true; // All products have sufficient stock
+        return true; // Vsechno je na skladě
     };
 
-    // Calculate the initial price of products in the cart
+    // Vypočitani zakladni ceny
     useEffect(() => {
         let initialPrice = 0;
         productsInCart.forEach(product => {
@@ -74,7 +74,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
         setTotalPrice(initialPrice);
     }, [productsInCart]);
 
-    // Update total price based on the selected delivery method
+    // Aktualizace ceny podle vybraneho doruceni
     useEffect(() => {
         if (selectedDelivery) {
             const deliveryCost = deliveryCosts[selectedDelivery] || 0;
@@ -107,7 +107,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
         if (isSubmitting) return;
         setIsSubmitting(true);
 
-        // Validate required fields
+        // Validace vyplnenych policek
         if (!selectedPayment) {
             toast.error('Vyberte způsob platby.');
             setIsSubmitting(false);
@@ -132,7 +132,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
             return;
         }
 
-        // Validate stock before proceeding
+        // Validace zbozi na sklade
         const isStockValid = await validateStock(productsInCart);
         if (!isStockValid) {
             toast.error('Některé položky v košíku překračují dostupné množství na skladě.');
@@ -141,7 +141,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
         }
 
         try {
-            // Add the order to the database
+            // pridani do db
             await addDoc(collection(projectFirestore, 'orders'), {
                 userId: user.uid,
                 userName: firstName,
@@ -154,7 +154,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                 timestamp: new Date(),
             });
 
-            // Update the remaining stock in the database
+            // aktualizace zbyvajiciho zbozi na sklade
             for (const product of productsInCart) {
                 const productRef = doc(projectFirestore, "products", product.id);
                 await updateDoc(productRef, {
@@ -162,7 +162,7 @@ const Cart = ({ productsInCart, increaseQuantity, decreaseQuantity, clearCart, f
                 });
             }
 
-            // Clear the cart
+            // smazani kosiku
             const userCartDoc = doc(projectFirestore, "carts", user.uid);
             await deleteDoc(userCartDoc);
 

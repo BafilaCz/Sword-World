@@ -14,9 +14,7 @@ import defaultPfp from '../img/defaultPfp.png'
 const ReviewsForm = ({ productId }) => {
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(5);
-    const { userDetails, loading } = useUserDetails(); // Get user details
-    const [averageReview, setAverageReview] = useState(null);
-    const [reviewCount, setReviewCount] = useState(null);
+    const { userDetails, loading } = useUserDetails();
     const user = useUser();
     const [showReview, setShowReview] = useState(false)
 
@@ -36,22 +34,19 @@ const ReviewsForm = ({ productId }) => {
 
         if (productSnap.exists()) {
             const productData = productSnap.data();
-            const currentAverage = productData.averageReview || 0; // Default to 0 if not set
-            const currentCount = productData.reviewCount || 0; // Default to 0 if not set
+            const currentAverage = productData.averageReview || 0; // Default 0
+            const currentCount = productData.reviewCount || 0; // Default 0
 
-            // Calculate the new average
+            // pocitani prumeru
             const newAverage = ((currentAverage * currentCount) + newRating) / (currentCount + 1);
-            const roundedAverage = Math.round(newAverage * 10) / 10; // Round to 1 decimal place
+            const roundedAverage = Math.round(newAverage * 10) / 10; // zaokrouhledo na 1 desetinne
 
-            // Update Firestore
+            // update v db
             await updateDoc(productRef, {
-                reviewCount: increment(1), // Increment review count
-                averageReview: roundedAverage, // Update the average review
+                reviewCount: increment(1), // zvysit o 1
+                averageReview: roundedAverage, // update na novy prumer
             });
 
-            // Update local state (optional, for immediate UI feedback)
-            setAverageReview(roundedAverage);
-            setReviewCount(currentCount + 1);
         }
     };
 
@@ -81,9 +76,9 @@ const ReviewsForm = ({ productId }) => {
             setComment('');
             setRating(5);
 
-            await updateProductReview(productId, rating); // Update the product review
+            await updateProductReview(productId, rating);
             window.location.reload()
-            // řefreshne stránku aby se zobrazila přidaná recenze
+            // refreshne stránku aby se zobrazila přidaná recenze
             // toast.success('Recenze byla úspěšně přidána!');
         } catch (error) {
             console.error('Error adding review:', error);
@@ -91,22 +86,6 @@ const ReviewsForm = ({ productId }) => {
         }
     };
 
-    useEffect(() => {
-        const fetchAverageReview = async () => {
-            const productRef = doc(projectFirestore, "products", productId);
-            const productSnap = await getDoc(productRef);
-
-            if (productSnap.exists()) {
-                setAverageReview(productSnap.data().averageReview || 0.0); // Default to 0.0 if not set
-                setReviewCount(productSnap.data().reviewCount || 0); // Default to 0 if not set
-            } else {
-                console.log("No such document!");
-            }
-        };
-
-        fetchAverageReview();
-    }, [productId]);
-    
     return (
         <div className='reviewsForm'>
         <button className='oneProductReviewButton' onClick={toggleShowReview}> Napsat recenzi {<MdModeEdit />}</button>
@@ -131,6 +110,7 @@ const ReviewsForm = ({ productId }) => {
 
             <div className='reviewsFormSelectStar'>
                 <select value={rating} onChange={(e) => setRating(parseInt(e.target.value))}>
+                    {/* vybirani hvezdicek 1 - 5 ze selectu */}
                     {[5, 4, 3, 2, 1].map(num => (
                         <option key={num} value={num}>{num} </option>
                     ))}

@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, getDoc } from 'firebase/firestore';
 import { projectFirestore } from '../firebase/config';
-import useUserDetails from '../context/userDetailsContext';
 import "./ReviewsList.css"
 import { FaStar } from "react-icons/fa";
-import { useUser } from '../context/UserContext';
-import defaultPfp from '../img/defaultPfp.png'
-
-
-
-
 
 const ReviewsList = ({ productId }) => {
     const [reviews, setReviews] = useState([]);
-    const { userDetails, loading } = useUserDetails()
-    const user = useUser()
-
 
     useEffect(() => {
+        // ziskavani recenzi z db
         const fetchReviews = async () => {
             const q = query(collection(projectFirestore, 'reviews'), where('productId', '==', productId));
             const querySnapshot = await getDocs(q);
@@ -27,7 +18,7 @@ const ReviewsList = ({ productId }) => {
         fetchReviews();
     }, [productId]);
 
- 
+    // formatovani data a času do českeho rozhrani
     const formatter = new Intl.DateTimeFormat('cs-CZ', {
         year: 'numeric',
         month: '2-digit',
@@ -36,12 +27,6 @@ const ReviewsList = ({ productId }) => {
         minute: '2-digit',
         hour12: false,
     })
-
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     
     return (
         <div className='reviewsList'>
